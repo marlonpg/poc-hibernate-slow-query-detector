@@ -1,4 +1,4 @@
-package com.gamba.software.slow_query_detector.repository;
+package com.gamba.software.slow_query_detector.db.repository;
 
 import com.gamba.software.slow_query_detector.model.User;
 import org.springframework.data.jpa.repository.JpaRepository;

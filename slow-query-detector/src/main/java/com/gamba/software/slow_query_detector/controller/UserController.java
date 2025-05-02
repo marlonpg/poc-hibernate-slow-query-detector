@@ -3,9 +3,12 @@ package com.gamba.software.slow_query_detector.controller;
 import com.gamba.software.slow_query_detector.model.User;
 import com.gamba.software.slow_query_detector.service.DataGeneratorService;
 import com.gamba.software.slow_query_detector.service.UserService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
 
@@ -16,7 +19,6 @@ public class UserController {
     private final UserService userService;
     private final DataGeneratorService dataGeneratorService;
 
-    @Autowired
     public UserController(UserService userService, DataGeneratorService dataGeneratorService) {
         this.userService = userService;
         this.dataGeneratorService = dataGeneratorService;

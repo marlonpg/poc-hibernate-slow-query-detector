@@ -1,8 +1,7 @@
 package com.gamba.software.slow_query_detector.service;
 
+import com.gamba.software.slow_query_detector.db.repository.UserRepository;
 import com.gamba.software.slow_query_detector.model.User;
-import com.gamba.software.slow_query_detector.repository.UserRepository;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -21,7 +20,6 @@ public class DataGeneratorService {
     private static final String[] FIRST_NAMES = {"John", "Jane", "Michael", "Emily", "David", "Sarah", "James", "Jennifer", "Robert", "Lisa"};
     private static final String[] LAST_NAMES = {"Smith", "Johnson", "Williams", "Brown", "Jones", "Garcia", "Miller", "Davis", "Rodriguez", "Martinez"};
 
-    @Autowired
     public DataGeneratorService(UserRepository userRepository) {
         this.userRepository = userRepository;
     }
