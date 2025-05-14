@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration>
+
+    <include resource="org/springframework/boot/logging/logback/defaults.xml"/>
+
+    <appender name="CONSOLE" class="ch.qos.logback.core.ConsoleAppender">
+        <encoder>
+            <pattern>${CONSOLE_LOG_PATTERN}</pattern>
+            <charset>utf8</charset>
+        </encoder>
+    </appender>
+
+    <appender name="SLOW_QUERY_COLLECTOR" class="com.gamba.software.slow_query_detector.service.SlowQueryCollectorAppender">
+    </appender>
+
+    <logger name="org.hibernate.SQL_SLOW" level="INFO" additivity="false">
+        <appender-ref ref="CONSOLE"/> <appender-ref ref="SLOW_QUERY_COLLECTOR"/>
+    </logger>
+
+    <root level="INFO"> <appender-ref ref="CONSOLE"/>
+    </root>
+
+</configuration>
