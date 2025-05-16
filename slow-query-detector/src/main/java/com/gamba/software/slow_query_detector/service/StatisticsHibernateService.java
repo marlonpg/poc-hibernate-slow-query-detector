@@ -17,18 +17,12 @@ public class StatisticsHibernateService {
     @Autowired
     private EntityManagerFactory entityManagerFactory;
 
-    @Autowired
-    private SessionFactory sessionFactory;
-
-
-    public Map<String, Long> getSlowQueriesTop(int num){
-        SessionFactory sessionFactory1 = entityManagerFactory.unwrap(SessionFactory.class);
-        Statistics statistics1 = sessionFactory1.getStatistics();
+    public Map<String, Long> getSlowQueriesTop(int num) {
+        SessionFactory sessionFactory = entityManagerFactory.unwrap(SessionFactory.class);
+        Statistics statistics = sessionFactory.getStatistics();
         Map<String, Long> map = new HashMap<>();
 
-        Statistics statistics = sessionFactory.getStatistics();
-
-        for (String key : statistics.getSlowQueries().keySet()){
+        for (String key : statistics.getSlowQueries().keySet()) {
             logger.info(key + statistics.getSlowQueries().get(key));
         }
         return map;
