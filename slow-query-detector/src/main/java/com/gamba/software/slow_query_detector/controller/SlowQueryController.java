@@ -4,15 +4,13 @@ import com.gamba.software.slow_query_detector.model.SlowQueryData;
 import com.gamba.software.slow_query_detector.service.SlowQueryCollectorAppender;
 import com.gamba.software.slow_query_detector.service.StatisticsHibernateService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 
 @RestController
 @RequestMapping("/admin/slow-queries") // Choose an appropriate path
@@ -37,10 +35,7 @@ public class SlowQueryController {
 
     @GetMapping("/top3")
     public List<SlowQueryData> getTop3SlowQueries() {
-        Map<String, Long> map = statisticsHibernateService.getSlowQueriesTop(3);
-
-        return new ArrayList<>();
-        //return SlowQueryCollectorAppender.getTopNSlowestQueries(3);
+        return statisticsHibernateService.getSlowQueriesTop(3);
     }
 
     @DeleteMapping("/clear")

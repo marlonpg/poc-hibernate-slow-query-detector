@@ -1,12 +1,16 @@
 package com.gamba.software.slow_query_detector.service;
 
+import com.gamba.software.slow_query_detector.model.SlowQueryData;
 import jakarta.persistence.EntityManagerFactory;
 import org.hibernate.SessionFactory;
 import org.hibernate.stat.Statistics;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.logging.Logger;
 
@@ -17,14 +21,18 @@ public class StatisticsHibernateService {
     @Autowired
     private EntityManagerFactory entityManagerFactory;
 
-    public Map<String, Long> getSlowQueriesTop(int num) {
+    public List<SlowQueryData> getSlowQueriesTop(int num) {
         SessionFactory sessionFactory = entityManagerFactory.unwrap(SessionFactory.class);
         Statistics statistics = sessionFactory.getStatistics();
         Map<String, Long> map = new HashMap<>();
-
-        for (String key : statistics.getSlowQueries().keySet()) {
-            logger.info(key + statistics.getSlowQueries().get(key));
+        List<SlowQueryData> slowQueryData = new ArrayList<>();
+        for (String query : statistics.getSlowQueries().keySet()) {
+            Long timeInMs = statistics.getSlowQueries().get(query);
+            logger.info(query + " " + timeInMs);
+            SlowQueryData queryData = new SlowQueryData(query, timeInMs);
+            slowQueryData.add(queryData);
         }
-        return map;
+        slowQueryData.sort(Comparator.reverseOrder());
+        return slowQueryData.stream().limit(num).toList();
     }
 }
